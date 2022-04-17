@@ -6,6 +6,12 @@
 		Name = name_; Lastname = lastname_;
 		AdmissionYear = ayear_; PayForm = pform_;
 	}
+	WorkerCard::WorkerCard(std::string const name_, std::string const lname_, std::string post_, int ayear_, int salary_)
+	{
+		Name = name_; Lastname = lname_; Post = post_;
+		AdmissionYear = ayear_; Salary = salary_;
+	}
+	WorkerCard::WorkerCard() {}
 	Card::Card() {}
 
 	std::string Card::GetInfo()
@@ -15,6 +21,19 @@
 		if (PayForm == PAYMENT::PF_BUDGET) res += " 1";
 		if (PayForm == PAYMENT::PF_TARGET) res += " 2";
 		return res;
+	}
+
+	std::string WorkerCard::GetPost() { return Post; }
+	void WorkerCard::SetPost(std::string new_post) { this->Post = new_post; }
+	int WorkerCard::GetSalary() { return Salary; }
+	void WorkerCard::ChangeSalary(int new_s) { this->Salary = new_s; }
+	std::string WorkerCard::GetInfo() 
+	{
+		return Name + " " + Lastname + " " + Post + " " + std::to_string(AdmissionYear) + " " + std::to_string(Salary);
+	}
+	std::string WorkerCard::GetInfoFixed()
+	{
+		return Name + " " + Lastname + "\t\t" + Post + "      \t" + std::to_string(AdmissionYear) + " г.\t" + std::to_string(Salary) + " руб.";
 	}
 
 	std::string Human::GetName() { return Name; }

@@ -71,6 +71,19 @@ void RewriteBase(std::vector<Card> &base_, std::string path)
 	}
 	out.close();
 }
+void RewriteBase(std::vector<WorkerCard>& base_)
+{
+	std::ofstream out;          // поток для записи
+	out.open(WORKERS_PATH); // окрываем файл для записи
+	if (out.is_open())
+	{
+		for (int i = 0; i < base_.size(); i++)
+		{
+			out << base_[i].GetInfo() + "\n";
+		}
+	}
+	out.close();
+}
 void BaseAppend(std::string card, std::string path)
 {
 	std::ofstream out(path, std::ios::app);
@@ -122,6 +135,21 @@ void BaseAppend(std::string card, std::string path)
 			while (getline(in, line))
 			{
 				base_.push_back(TextToCard(line));
+			}
+		}
+		in.close();
+		return base_;
+	}
+	std::vector<WorkerCard> load_base()
+	{
+		std::vector<WorkerCard> base_;
+		std::string line;
+		std::ifstream in(WORKERS_PATH); // окрываем файл для чтения
+		if (in.is_open())
+		{
+			while (getline(in, line))
+			{
+				base_.push_back(TextToWCard(line));
 			}
 		}
 		in.close();
@@ -227,4 +255,33 @@ void BaseAppend(std::string card, std::string path)
 		}
 		in.close();
 		return stoS(line);
+	}
+	//
+	//
+	WorkerCard TextToWCard(std::string txt)
+	{
+		std::cmatch info_;
+		if (regex_match(txt.c_str(), info_, WORKER_REGEX))
+		{
+			WorkerCard card_(info_[1], info_[2], info_[3], stoi(info_[4]), stoi(info_[5]));
+			return card_;
+		}
+		return WorkerCard();
+	}
+	void RefreshWorkersBox(Windows::Forms::ListBox^ box)
+	{
+		box->Items->Clear();
+		//
+		std::string line;
+		std::ifstream in(WORKERS_PATH);
+		if (in.is_open())
+		{
+			while (getline(in, line))
+			{
+				WorkerCard buffer = TextToWCard(line);
+				line = buffer.GetInfoFixed();
+				box->Items->Add(stoS(line));
+			}
+		}
+		in.close();
 	}

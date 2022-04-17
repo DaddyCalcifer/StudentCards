@@ -19,8 +19,10 @@ using namespace System;
 #define SF_SPECIALIST "бяхішрышђхђ"
 #define ACCOUNTS "accounts.cdb"
 #define LOGIN_PATH "lastlog.cdb"
+#define WORKERS_PATH "workers.cdb"
 
 static std::regex STUDENT_REGEX("([Р-пр-џA-Za-z\\-]{2,20}) ([Р-пр-џA-Za-z\\-]{2,20}) ([сёъь]{1})([Р-п]{3})\\-([\\d]{2})([\\d]+) ([\\d]{1})");
+static std::regex WORKER_REGEX("([Р-пр-џA-Za-z\\-]{2,20}) ([Р-пр-џA-Za-z\\-]{2,20}) ([Р-пр-џ\\-]{2,20}) ([\\d]{4}) ([\\d]{4,})");
 static std::regex NAME_REGEX("([Р-пр-џA-Za-z\\-]{2,20})");
 static std::regex GROUP_REGEX("([сёъь]{1})([Р-п]{3})\\-([\\d]{2})([\\d]+)");
 static std::regex LOGIN_PASSWORD("([Р-пр-џA-Za-z\\-]{2,20}) ([Р-пр-џA-Za-z\\-]{2,20})");
@@ -61,4 +63,19 @@ public:
 	Card();
 	//
 	std::string GetInfo();
+};
+class WorkerCard : public Human
+{
+private:
+	std::string Post;
+	int Salary;
+public:
+	WorkerCard(std::string const name_, std::string const lname_, std::string post_, int ayear_, int salary_);
+	WorkerCard();
+	std::string GetPost();
+	std::string GetInfo();
+	std::string GetInfoFixed();
+	void SetPost(std::string new_post);
+	int GetSalary();
+	void ChangeSalary(int new_s);
 };
