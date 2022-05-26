@@ -1,4 +1,5 @@
 #pragma once
+#include "funcsHeader.h"
 namespace MyCards13 {
 
 	using namespace System;
@@ -14,14 +15,7 @@ namespace MyCards13 {
 	public ref class GuestForm : public System::Windows::Forms::Form
 	{
 	public:
-		GuestForm()
-		{
-			InitializeComponent();
-			//
-			//TODO: добавьте код конструктора
-			//
-		}
-
+		GuestForm();
 	protected:
 		/// <summary>
 		/// Освободить все используемые ресурсы.
@@ -36,13 +30,20 @@ namespace MyCards13 {
 	private: System::Windows::Forms::Label^ label1;
 
 	private: System::Windows::Forms::Label^ label2;
-	private: System::Windows::Forms::Label^ label3;
-	private: System::Windows::Forms::Label^ label4;
-	private: System::Windows::Forms::Label^ label5;
-	private: System::Windows::Forms::Label^ label6;
-	private: System::Windows::Forms::Label^ label7;
-	private: System::Windows::Forms::Label^ label8;
-	private: System::Windows::Forms::Label^ label9;
+	private: System::Windows::Forms::Label^ sum_f;
+
+	private: System::Windows::Forms::Label^ math_f;
+	private: System::Windows::Forms::Label^ tech_f;
+	private: System::Windows::Forms::Label^ railway_f;
+	private: System::Windows::Forms::Label^ roadt_f;
+	private: System::Windows::Forms::Label^ ist_f;
+	private: System::Windows::Forms::Label^ int_f;
+
+
+
+
+
+
 	private: System::Windows::Forms::Button^ button1;
 
 	protected:
@@ -62,13 +63,13 @@ namespace MyCards13 {
 		{
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->label3 = (gcnew System::Windows::Forms::Label());
-			this->label4 = (gcnew System::Windows::Forms::Label());
-			this->label5 = (gcnew System::Windows::Forms::Label());
-			this->label6 = (gcnew System::Windows::Forms::Label());
-			this->label7 = (gcnew System::Windows::Forms::Label());
-			this->label8 = (gcnew System::Windows::Forms::Label());
-			this->label9 = (gcnew System::Windows::Forms::Label());
+			this->sum_f = (gcnew System::Windows::Forms::Label());
+			this->math_f = (gcnew System::Windows::Forms::Label());
+			this->tech_f = (gcnew System::Windows::Forms::Label());
+			this->railway_f = (gcnew System::Windows::Forms::Label());
+			this->roadt_f = (gcnew System::Windows::Forms::Label());
+			this->ist_f = (gcnew System::Windows::Forms::Label());
+			this->int_f = (gcnew System::Windows::Forms::Label());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
@@ -77,9 +78,9 @@ namespace MyCards13 {
 			this->label1->AutoSize = true;
 			this->label1->Location = System::Drawing::Point(96, 9);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(140, 17);
+			this->label1->Size = System::Drawing::Size(147, 17);
 			this->label1->TabIndex = 0;
-			this->label1->Text = L"Здравсвуйте, Гость!";
+			this->label1->Text = L"Здравствуйте, Гость!";
 			this->label1->Click += gcnew System::EventHandler(this, &GuestForm::label1_Click);
 			// 
 			// label2
@@ -91,68 +92,68 @@ namespace MyCards13 {
 			this->label2->TabIndex = 2;
 			this->label2->Text = L"На данный момент в нашем Университете";
 			// 
-			// label3
+			// sum_f
 			// 
-			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(12, 52);
-			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(239, 17);
-			this->label3->TabIndex = 3;
-			this->label3->Text = L"обучаются 2983 студентов, из них:";
+			this->sum_f->AutoSize = true;
+			this->sum_f->Location = System::Drawing::Point(12, 52);
+			this->sum_f->Name = L"sum_f";
+			this->sum_f->Size = System::Drawing::Size(257, 17);
+			this->sum_f->TabIndex = 3;
+			this->sum_f->Text = L"обучаются студенты на факультетах:";
 			// 
-			// label4
+			// math_f
 			// 
-			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(9, 69);
-			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(198, 17);
-			this->label4->TabIndex = 4;
-			this->label4->Text = L"Математический факультет:";
+			this->math_f->AutoSize = true;
+			this->math_f->Location = System::Drawing::Point(9, 69);
+			this->math_f->Name = L"math_f";
+			this->math_f->Size = System::Drawing::Size(198, 17);
+			this->math_f->TabIndex = 4;
+			this->math_f->Text = L"Математический факультет:";
 			// 
-			// label5
+			// tech_f
 			// 
-			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(9, 86);
-			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(171, 17);
-			this->label5->TabIndex = 5;
-			this->label5->Text = L"Технический факультет:";
+			this->tech_f->AutoSize = true;
+			this->tech_f->Location = System::Drawing::Point(9, 86);
+			this->tech_f->Name = L"tech_f";
+			this->tech_f->Size = System::Drawing::Size(171, 17);
+			this->tech_f->TabIndex = 5;
+			this->tech_f->Text = L"Технический факультет:";
 			// 
-			// label6
+			// railway_f
 			// 
-			this->label6->AutoSize = true;
-			this->label6->Location = System::Drawing::Point(9, 103);
-			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(213, 17);
-			this->label6->TabIndex = 6;
-			this->label6->Text = L"Железнодорожный факультет:";
+			this->railway_f->AutoSize = true;
+			this->railway_f->Location = System::Drawing::Point(9, 103);
+			this->railway_f->Name = L"railway_f";
+			this->railway_f->Size = System::Drawing::Size(213, 17);
+			this->railway_f->TabIndex = 6;
+			this->railway_f->Text = L"Железнодорожный факультет:";
 			// 
-			// label7
+			// roadt_f
 			// 
-			this->label7->AutoSize = true;
-			this->label7->Location = System::Drawing::Point(9, 120);
-			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(246, 17);
-			this->label7->TabIndex = 7;
-			this->label7->Text = L"Дорожно-транспортный факультет:";
+			this->roadt_f->AutoSize = true;
+			this->roadt_f->Location = System::Drawing::Point(9, 120);
+			this->roadt_f->Name = L"roadt_f";
+			this->roadt_f->Size = System::Drawing::Size(246, 17);
+			this->roadt_f->TabIndex = 7;
+			this->roadt_f->Text = L"Дорожно-транспортный факультет:";
 			// 
-			// label8
+			// ist_f
 			// 
-			this->label8->AutoSize = true;
-			this->label8->Location = System::Drawing::Point(9, 137);
-			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(259, 17);
-			this->label8->TabIndex = 8;
-			this->label8->Text = L"Факультет инф. систем и технологий:";
+			this->ist_f->AutoSize = true;
+			this->ist_f->Location = System::Drawing::Point(9, 137);
+			this->ist_f->Name = L"ist_f";
+			this->ist_f->Size = System::Drawing::Size(259, 17);
+			this->ist_f->TabIndex = 8;
+			this->ist_f->Text = L"Факультет инф. систем и технологий:";
 			// 
-			// label9
+			// int_f
 			// 
-			this->label9->AutoSize = true;
-			this->label9->Location = System::Drawing::Point(9, 154);
-			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(195, 17);
-			this->label9->TabIndex = 9;
-			this->label9->Text = L"Международный факультет:";
+			this->int_f->AutoSize = true;
+			this->int_f->Location = System::Drawing::Point(9, 154);
+			this->int_f->Name = L"int_f";
+			this->int_f->Size = System::Drawing::Size(195, 17);
+			this->int_f->TabIndex = 9;
+			this->int_f->Text = L"Международный факультет:";
 			// 
 			// button1
 			// 
@@ -171,13 +172,13 @@ namespace MyCards13 {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(337, 238);
 			this->Controls->Add(this->button1);
-			this->Controls->Add(this->label9);
-			this->Controls->Add(this->label8);
-			this->Controls->Add(this->label7);
-			this->Controls->Add(this->label6);
-			this->Controls->Add(this->label5);
-			this->Controls->Add(this->label4);
-			this->Controls->Add(this->label3);
+			this->Controls->Add(this->int_f);
+			this->Controls->Add(this->ist_f);
+			this->Controls->Add(this->roadt_f);
+			this->Controls->Add(this->railway_f);
+			this->Controls->Add(this->tech_f);
+			this->Controls->Add(this->math_f);
+			this->Controls->Add(this->sum_f);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
 			this->MaximizeBox = false;
@@ -192,12 +193,8 @@ namespace MyCards13 {
 
 		}
 #pragma endregion
-	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
-	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
-	private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {
-		this->Close();
-	}
+	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {}
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {}
+	private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^ e) {this->Close();}
 };
 }

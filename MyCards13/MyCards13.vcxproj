@@ -130,6 +130,7 @@
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="EditCardForm.cpp" />
     <ClCompile Include="GuestForm.cpp" />
+    <ClCompile Include="InfoForm.cpp" />
     <ClCompile Include="LoginForm.cpp" />
     <ClCompile Include="ModerForm.cpp" />
   </ItemGroup>
@@ -140,6 +141,9 @@
     </ClInclude>
     <ClInclude Include="funcsHeader.h" />
     <ClInclude Include="GuestForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="InfoForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="LoginForm.h">
@@ -155,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GuestForm.resx">
       <DependentUpon>GuestForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoForm.resx">
+      <DependentUpon>InfoForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.h</DependentUpon>

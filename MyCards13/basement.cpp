@@ -3,24 +3,14 @@
 std::string CardToText(Card& card)
 	{
 		std::string res = "";
-		res = card.GetName() + " " + card.GetLastname() + "\t\t" /*+ std::to_string(card.GetAYear()) + " "*/;
-		/*if (card.Faculty == FACULTY::MATH) res = res + F_MATH + " ";
-		if (card.Faculty == FACULTY::TECH) res = res + F_TECH + " ";
-		if (card.Faculty == FACULTY::RAILWAY) res = res + F_RAILWAY + " ";
-		if (card.Faculty == FACULTY::ROAD_TRANSPORT) res = res + F_ROAD_TRANSPORT + " ";
-		if (card.Faculty == FACULTY::ISTECH) res = res + F_ISTECH + " ";
-		if (card.Faculty == FACULTY::INTERNATIONAL) res = res + F_INTERNATIONAL + " ";*/
+		res = card.GetName() + " " + card.GetLastname() + "                 \t\t\t";
 
 		res = res + card.Group + "  \t";
-
-		/*if (card.StudyForm == STUDY_TYPE::ST_COLLEGE) res = res + SF_COLLEGE + " ";
-		if (card.StudyForm == STUDY_TYPE::ST_FULL_HIGH) res = res + SF_FULL_HIGH + " ";
-		if (card.StudyForm == STUDY_TYPE::ST_SEMI_HIGH) res = res + SF_SEMI_HIGH + " ";
-		if (card.StudyForm == STUDY_TYPE::ST_SPECIALIST) res = res + SF_SPECIALIST + " ";*/
 
 		if (card.PayForm == PAYMENT::PF_BUDGET) res = res + "Бюджет";
 		if (card.PayForm == PAYMENT::PF_CONTRACT) res = res + "Контракт";
 		if (card.PayForm == PAYMENT::PF_TARGET) res = res + "Направление";
+		if (card.PayForm == PAYMENT::PF_NONE) res = res + "Запись повреждена!";
 
 		return res;
 	}
@@ -28,18 +18,14 @@ std::string CardToRF(Card& card)
 	{
 		std::string res = "";
 		res = card.GetName() + " " + card.GetLastname() + " ";
-		/*if (card.Faculty == FACULTY::MATH) res = res + "1" + " ";
-		if (card.Faculty == FACULTY::TECH) res = res + "2" + " ";
-		if (card.Faculty == FACULTY::RAILWAY) res = res + "3" + " ";
-		if (card.Faculty == FACULTY::ROAD_TRANSPORT) res = res + "4" + " ";
-		if (card.Faculty == FACULTY::ISTECH) res = res + "5" + " ";
-		if (card.Faculty == FACULTY::INTERNATIONAL) res = res + "6" + " ";*/
 
 		res += card.Group; res += " ";
 
-		if (card.PayForm == PAYMENT::PF_BUDGET) res += "1\n";
-		if (card.PayForm == PAYMENT::PF_CONTRACT) res += "0\n";
-		if (card.PayForm == PAYMENT::PF_TARGET) res += "2\n";
+		if (card.PayForm == PAYMENT::PF_BUDGET) res += "1 ";
+		if (card.PayForm == PAYMENT::PF_CONTRACT) res += "0 ";
+		if (card.PayForm == PAYMENT::PF_TARGET) res += "2 ";
+
+		res += Stos(card.GetDescription()); res += "\n";
 
 		return res;
 	}
@@ -95,12 +81,12 @@ void BaseAppend(std::string card, std::string path)
 }
 
 
-	Card TextToCard(std::string txt)
+Card TextToCard(std::string txt)
 	{
 		std::cmatch info_;
 		if (regex_match(txt.c_str(), info_, STUDENT_REGEX))
 		{
-			Card card_(info_[1], info_[2], 2000, PAYMENT::PF_BUDGET);
+			Card card_(info_[1], info_[2], 2000, PAYMENT::PF_NONE);
 
 			if (info_[3] == "б" || info_[3] == "с" || info_[3] == "к" || info_[3] == "м")
 			{
@@ -121,11 +107,13 @@ void BaseAppend(std::string card, std::string path)
 			case 2: card_.PayForm = PAYMENT::PF_TARGET; break;
 			}
 
+			card_.SetDescription(info_[8]);
+
 			return card_;
 		}
 		return Card();
 	}
-	std::vector<Card> load_base (std::string path)
+std::vector<Card> load_base (std::string path)
 	{
 		std::vector<Card> base_;
 		std::string line;
@@ -140,7 +128,7 @@ void BaseAppend(std::string card, std::string path)
 		in.close();
 		return base_;
 	}
-	std::vector<WorkerCard> load_base()
+std::vector<WorkerCard> load_base()
 	{
 		std::vector<WorkerCard> base_;
 		std::string line;
@@ -156,7 +144,7 @@ void BaseAppend(std::string card, std::string path)
 		return base_;
 	}
 
-	int log_in(String^ login, String^ password)
+int log_in(String^ login, String^ password)
 	{
 		std::string line_;
 		std::ifstream in(ACCOUNTS);
@@ -173,7 +161,7 @@ void BaseAppend(std::string card, std::string path)
 		in.close();
 		return -1;
 	}
-	void AddAccount(String^ login, String^ password, int auth_level)
+void AddAccount(String^ login, String^ password, int auth_level)
 	{
 		std::string log_pas_au = Stos(login) + " " + Stos(password) + " " + std::to_string(auth_level);
 		std::ofstream out(ACCOUNTS, std::ios::app);
@@ -183,7 +171,7 @@ void BaseAppend(std::string card, std::string path)
 		}
 		out.close();
 	}
-	std::string GetPath(Windows::Forms::ComboBox^ box)
+std::string GetPath(Windows::Forms::ComboBox^ box)
 	{
 		std::string res;
 		switch (box->SelectedIndex)
@@ -212,7 +200,7 @@ void BaseAppend(std::string card, std::string path)
 		}
 		return res;
 	}
-	bool isExist(std::string line, std::string pathh)
+bool isExist(std::string line, std::string pathh)
 	{
 		std::string line_;
 		std::ifstream in(pathh);
@@ -223,7 +211,7 @@ void BaseAppend(std::string card, std::string path)
 		in.close();
 		return false;
 	}
-	void SaveLoginInfo(String^ login, String^ password)
+void SaveLoginInfo(String^ login, String^ password)
 	{
 		std::string datal = Stos(login) + "\n" + Stos(password);
 		std::ofstream out;          // поток для записи
@@ -234,7 +222,7 @@ void BaseAppend(std::string card, std::string path)
 		}
 		out.close();
 	}
-	String^ ReadLogin()
+String^ ReadLogin()
 	{
 		std::string line;
 		std::ifstream in(LOGIN_PATH); // окрываем файл для чтения
@@ -245,7 +233,7 @@ void BaseAppend(std::string card, std::string path)
 		in.close();
 		return stoS(line);
 	}
-	String^ ReadPassword()
+String^ ReadPassword()
 	{
 		std::string line;
 		std::ifstream in(LOGIN_PATH); // окрываем файл для чтения
@@ -258,7 +246,7 @@ void BaseAppend(std::string card, std::string path)
 	}
 	//
 	//
-	WorkerCard TextToWCard(std::string txt)
+WorkerCard TextToWCard(std::string txt)
 	{
 		std::cmatch info_;
 		if (regex_match(txt.c_str(), info_, WORKER_REGEX))
@@ -268,7 +256,7 @@ void BaseAppend(std::string card, std::string path)
 		}
 		return WorkerCard();
 	}
-	void RefreshWorkersBox(Windows::Forms::ListBox^ box)
+void RefreshWorkersBox(Windows::Forms::ListBox^ box)
 	{
 		box->Items->Clear();
 		//
@@ -284,4 +272,19 @@ void BaseAppend(std::string card, std::string path)
 			}
 		}
 		in.close();
+	}
+System::String^ GetLineCountS(std::string path_)
+	{
+		int count = 0;
+		std::string line;
+		std::ifstream in(path_);
+		if (in.is_open())
+		{
+			while (getline(in, line))
+			{
+				count++;
+			}
+		}
+		in.close();
+		return count.ToString();
 	}

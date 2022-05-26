@@ -33,6 +33,9 @@
     <ClCompile Include="EditCardForm.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
+    <ClCompile Include="InfoForm.cpp">
+      <Filter>Файлы ресурсов</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoginForm.h">
@@ -51,6 +54,9 @@
       <Filter>Файлы ресурсов</Filter>
     </ClInclude>
     <ClInclude Include="EditCardForm.h">
+      <Filter>Файлы ресурсов</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoForm.h">
       <Filter>Файлы ресурсов</Filter>
     </ClInclude>
   </ItemGroup>

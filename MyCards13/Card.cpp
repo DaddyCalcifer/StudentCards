@@ -1,4 +1,4 @@
-#include "CardHead.h"
+#include "funcsHeader.h"
 
 
 	Card::Card(std::string const name_, std::string const lastname_, int ayear_, PAYMENT pform_)
@@ -22,6 +22,14 @@
 		if (PayForm == PAYMENT::PF_TARGET) res += " 2";
 		return res;
 	}
+	System::String^ Card::GetDescription()
+	{
+		return stoS(info);
+	}
+	void Card::SetDescription(std::string info_)
+	{
+		info = info_;
+	}
 
 	std::string WorkerCard::GetPost() { return Post; }
 	void WorkerCard::SetPost(std::string new_post) { this->Post = new_post; }
@@ -33,7 +41,7 @@
 	}
 	std::string WorkerCard::GetInfoFixed()
 	{
-		return Name + " " + Lastname + "\t\t" + Post + "      \t" + std::to_string(AdmissionYear) + " г.\t" + std::to_string(Salary) + " руб.";
+		return Name + " " + Lastname + "\t\t" + Post + "      \t" + std::to_string(AdmissionYear) + " г.\t\t" + std::to_string(Salary) + " руб.";
 	}
 
 	std::string Human::GetName() { return Name; }

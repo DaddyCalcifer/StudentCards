@@ -17,44 +17,7 @@ namespace MyCards13 {
 	public ref class EditCardForm : public System::Windows::Forms::Form
 	{
 	public:
-		EditCardForm(int ind, int fac)
-		{
-			index = ind;
-			faculty_id = fac;
-			InitializeComponent();
-			//
-			switch (faculty_id)
-			{
-			case 0:
-				path_ = "math_fac.cdb";
-				break;
-			case 1:
-				path_ = "tech_fac.cdb";
-				break;
-			case 2:
-				path_ = "railway_fac.cdb";
-				break;
-			case 3:
-				path_ = "roadt_fac.cdb";
-				break;
-			case 4:
-				path_ = "ist_fac.cdb";
-				break;
-			case 5:
-				path_ = "inat_fac.cdb";
-				break;
-			default:
-				DoAlert("Вы не выбрали факультет!");
-				break;
-			}
-			base = load_base(path_);
-			NameBox->Text = stoS(base.at(index).GetName());
-			LastnameBox->Text = stoS(base.at(index).GetLastname());
-			GroupBox->Text = stoS(base.at(index).Group);
-			if (base[index].PayForm == PAYMENT::PF_CONTRACT) PaymentBox->SelectedIndex = 0;
-			if (base[index].PayForm == PAYMENT::PF_BUDGET) PaymentBox->SelectedIndex = 1;
-			if (base[index].PayForm == PAYMENT::PF_TARGET) PaymentBox->SelectedIndex = 2;
-		}
+		EditCardForm(int ind, int fac);
 	protected:
 		/// <summary>
 		/// Освободить все используемые ресурсы.
@@ -80,6 +43,8 @@ namespace MyCards13 {
 
 	private: System::Windows::Forms::Button^ SaveButton;
 	private: System::Windows::Forms::Button^ CancelButton;
+	private: System::Windows::Forms::Label^ label5;
+	private: System::Windows::Forms::TextBox^ editInfoBox;
 
 
 
@@ -107,6 +72,8 @@ namespace MyCards13 {
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->SaveButton = (gcnew System::Windows::Forms::Button());
 			this->CancelButton = (gcnew System::Windows::Forms::Button());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->editInfoBox = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -122,9 +89,9 @@ namespace MyCards13 {
 			// NameBox
 			// 
 			this->NameBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->NameBox->Location = System::Drawing::Point(223, 13);
+			this->NameBox->Location = System::Drawing::Point(169, 13);
 			this->NameBox->Name = L"NameBox";
-			this->NameBox->Size = System::Drawing::Size(149, 24);
+			this->NameBox->Size = System::Drawing::Size(203, 24);
 			this->NameBox->TabIndex = 1;
 			// 
 			// label2
@@ -140,9 +107,9 @@ namespace MyCards13 {
 			// LastnameBox
 			// 
 			this->LastnameBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->LastnameBox->Location = System::Drawing::Point(223, 41);
+			this->LastnameBox->Location = System::Drawing::Point(169, 41);
 			this->LastnameBox->Name = L"LastnameBox";
-			this->LastnameBox->Size = System::Drawing::Size(149, 24);
+			this->LastnameBox->Size = System::Drawing::Size(203, 24);
 			this->LastnameBox->TabIndex = 3;
 			// 
 			// PaymentBox
@@ -150,9 +117,9 @@ namespace MyCards13 {
 			this->PaymentBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
 			this->PaymentBox->FormattingEnabled = true;
 			this->PaymentBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Контракт", L"Бюджет", L"Направление" });
-			this->PaymentBox->Location = System::Drawing::Point(223, 99);
+			this->PaymentBox->Location = System::Drawing::Point(169, 99);
 			this->PaymentBox->Name = L"PaymentBox";
-			this->PaymentBox->Size = System::Drawing::Size(149, 26);
+			this->PaymentBox->Size = System::Drawing::Size(203, 26);
 			this->PaymentBox->TabIndex = 4;
 			// 
 			// label3
@@ -168,9 +135,9 @@ namespace MyCards13 {
 			// GroupBox
 			// 
 			this->GroupBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
-			this->GroupBox->Location = System::Drawing::Point(223, 69);
+			this->GroupBox->Location = System::Drawing::Point(169, 69);
 			this->GroupBox->Name = L"GroupBox";
-			this->GroupBox->Size = System::Drawing::Size(149, 24);
+			this->GroupBox->Size = System::Drawing::Size(203, 24);
 			this->GroupBox->TabIndex = 6;
 			// 
 			// label4
@@ -187,7 +154,7 @@ namespace MyCards13 {
 			// SaveButton
 			// 
 			this->SaveButton->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
-			this->SaveButton->Location = System::Drawing::Point(19, 139);
+			this->SaveButton->Location = System::Drawing::Point(19, 225);
 			this->SaveButton->Name = L"SaveButton";
 			this->SaveButton->Size = System::Drawing::Size(354, 55);
 			this->SaveButton->TabIndex = 10;
@@ -198,7 +165,7 @@ namespace MyCards13 {
 			// CancelButton
 			// 
 			this->CancelButton->BackColor = System::Drawing::SystemColors::ScrollBar;
-			this->CancelButton->Location = System::Drawing::Point(18, 200);
+			this->CancelButton->Location = System::Drawing::Point(18, 286);
 			this->CancelButton->Name = L"CancelButton";
 			this->CancelButton->Size = System::Drawing::Size(354, 27);
 			this->CancelButton->TabIndex = 11;
@@ -206,12 +173,33 @@ namespace MyCards13 {
 			this->CancelButton->UseVisualStyleBackColor = false;
 			this->CancelButton->Click += gcnew System::EventHandler(this, &EditCardForm::CancelButton_Click);
 			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
+			this->label5->Location = System::Drawing::Point(15, 133);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(132, 20);
+			this->label5->TabIndex = 12;
+			this->label5->Text = L"Доп. сведения";
+			// 
+			// editInfoBox
+			// 
+			this->editInfoBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
+			this->editInfoBox->Location = System::Drawing::Point(169, 131);
+			this->editInfoBox->Multiline = true;
+			this->editInfoBox->Name = L"editInfoBox";
+			this->editInfoBox->Size = System::Drawing::Size(203, 88);
+			this->editInfoBox->TabIndex = 13;
+			// 
 			// EditCardForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
-			this->ClientSize = System::Drawing::Size(385, 234);
+			this->ClientSize = System::Drawing::Size(385, 325);
+			this->Controls->Add(this->editInfoBox);
+			this->Controls->Add(this->label5);
 			this->Controls->Add(this->CancelButton);
 			this->Controls->Add(this->SaveButton);
 			this->Controls->Add(this->label4);
@@ -222,6 +210,7 @@ namespace MyCards13 {
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->NameBox);
 			this->Controls->Add(this->label1);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
 			this->Name = L"EditCardForm";
@@ -233,36 +222,8 @@ namespace MyCards13 {
 
 		}
 #pragma endregion
-	private: System::Void label4_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
-private: System::Void CancelButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->Close();
-}
-private: System::Void SaveButton_Click(System::Object^ sender, System::EventArgs^ e) {
-	//
-	if (std::regex_match(Stos(NameBox->Text), NAME_REGEX))
-		base.at(index).ChangeName(NameBox->Text);
-	else DoAlert("Имя введено неккоректно!");
-	if (std::regex_match(Stos(LastnameBox->Text), NAME_REGEX))
-		base.at(index).ChangeLastname(LastnameBox->Text);
-	else DoAlert("Фамилия введена некооректно!");
-	if (std::regex_match(Stos(GroupBox->Text), GROUP_REGEX))
-		base.at(index).Group = Stos(GroupBox->Text);
-	else DoAlert("Формат группы ведён неверно!");
-
-	if (PaymentBox->SelectedIndex == 0) base.at(index).PayForm = PAYMENT::PF_CONTRACT;
-	if (PaymentBox->SelectedIndex == 1) base.at(index).PayForm = PAYMENT::PF_BUDGET;
-	if (PaymentBox->SelectedIndex == 2) base.at(index).PayForm = PAYMENT::PF_TARGET;
-	//
-	if (std::regex_match(Stos(NameBox->Text), NAME_REGEX) && std::regex_match(Stos(LastnameBox->Text), NAME_REGEX) && std::regex_match(Stos(GroupBox->Text), GROUP_REGEX)) 
-	{
-		if (!isExist(CardToRF(base[index]), path_))
-		{
-			RewriteBase(base, path_);
-			this->Close();
-		}
-		else DoAlert("Такой студент уже есть в базе!");
-	}
-}
+private: System::Void label4_Click(System::Object^ sender, System::EventArgs^ e) {}
+private: System::Void CancelButton_Click(System::Object^ sender, System::EventArgs^ e) {this->Close();}
+private: System::Void SaveButton_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }

@@ -21,15 +21,14 @@ using namespace System;
 #define LOGIN_PATH "lastlog.cdb"
 #define WORKERS_PATH "workers.cdb"
 
-static std::regex STUDENT_REGEX("([Р-пр-џA-Za-z\\-]{2,20}) ([Р-пр-џA-Za-z\\-]{2,20}) ([сёъь]{1})([Р-п]{3})\\-([\\d]{2})([\\d]+) ([\\d]{1})");
-static std::regex WORKER_REGEX("([Р-пр-џA-Za-z\\-]{2,20}) ([Р-пр-џA-Za-z\\-]{2,20}) ([Р-пр-џ\\-]{2,20}) ([\\d]{4}) ([\\d]{4,})");
-static std::regex NAME_REGEX("([Р-пр-џA-Za-z\\-]{2,20})");
+static std::regex STUDENT_REGEX("([Р-пр-џA-Za-z\\-ИЈ]{2,16}) ([Р-пр-џA-Za-z\\-ИЈ]{4,16}) ([сёъь]{1})([Р-п]{3})\\-([\\d]{2})([\\d]+) ([\\d]{1}) ([0-9Р-пр-џA-Za-z \\-ИЈ]{0,300})");
+static std::regex WORKER_REGEX("([Р-пр-џ\\-ИЈ]{2,16}) ([Р-пр-џ\\-ИЈ]{4,16}) ([Р-пр-џ\\-]{4,16}) ([\\d]{4}) ([\\d]{4,})");
+static std::regex NAME_REGEX("([Р-пр-џA-Za-z\\-]{2,16})");
 static std::regex GROUP_REGEX("([сёъь]{1})([Р-п]{3})\\-([\\d]{2})([\\d]+)");
 static std::regex LOGIN_PASSWORD("([Р-пр-џA-Za-z\\-]{2,20}) ([Р-пр-џA-Za-z\\-]{2,20})");
 
 enum class STUDY_TYPE {ST_SEMI_HIGH, ST_FULL_HIGH, ST_SPECIALIST, ST_COLLEGE};
-enum class FACULTY {MATH, TECH, RAILWAY, ROAD_TRANSPORT, ISTECH, INTERNATIONAL};
-enum class PAYMENT {PF_BUDGET, PF_CONTRACT, PF_TARGET};
+enum class PAYMENT {PF_BUDGET, PF_CONTRACT, PF_TARGET, PF_NONE};
 
 class CH_ERROR : public std::exception
 {
@@ -55,14 +54,18 @@ public:
 
 class Card : public Human
 {
+private:
+	std::string info = "Яѓёђю";
 public:
-	std::string Group; FACULTY Faculty;
-	PAYMENT PayForm = PAYMENT::PF_CONTRACT;
+	std::string Group;
+	PAYMENT PayForm = PAYMENT::PF_NONE;
 	STUDY_TYPE StudyForm = STUDY_TYPE::ST_SEMI_HIGH;
 	Card(std::string const name_, std::string const lastname_, int ayear_, PAYMENT pform_);
 	Card();
 	//
 	std::string GetInfo();
+	System::String^ GetDescription();
+	void SetDescription(std::string info_);
 };
 class WorkerCard : public Human
 {

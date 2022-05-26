@@ -16,20 +16,7 @@ namespace MyCards13 {
 	public ref class LoginForm : public System::Windows::Forms::Form
 	{
 	public:
-		LoginForm(void)
-		{
-			InitializeComponent();
-			if (ReadLogin() != "") LoginTextbox->Text = ReadLogin();
-			if (ReadPassword() != "") 
-			{ 
-				PasswordTextbox->Text = ReadPassword();
-				saveLoginInfo->Checked = true;
-			}
-			//
-			//TODO: добавьте код конструктора
-			//
-		}
-
+		LoginForm(void);
 	protected:
 		/// <summary>
 		/// Освободить все используемые ресурсы.
@@ -163,37 +150,8 @@ namespace MyCards13 {
 
 		}
 #pragma endregion
-	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-			GuestForm^ form = gcnew GuestForm();
-			this->Hide();
-			form->ShowDialog();
-			this->Show();
-	}
-private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-	int auth_ = log_in(LoginTextbox->Text, PasswordTextbox->Text);
-	if (auth_ != -1) 
-	{
-		if (saveLoginInfo->Checked) SaveLoginInfo(LoginTextbox->Text, PasswordTextbox->Text);
-		else SaveLoginInfo("", "");
-		if (auth_ == 1) 
-		{
-			ModerForm^ form = gcnew ModerForm();
-			this->Hide();
-			form->ShowDialog();
-			if (autoExit->Checked) this->Close();
-			else this->Show();
-		}
-		if (auth_ == 0)
-		{
-			MessageBox::Show("Форма студента находится в разработке :(", "недодел");
-		}
-	}
-	else { 
-		MessageBox::Show("Неправильный логин или пароль!", "Ошибка входа"); 
-		PasswordTextbox->Clear();
-	}
-}
-private: System::Void LoginForm_Load(System::Object^ sender, System::EventArgs^ e) {
-}
+private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void LoginForm_Load(System::Object^ sender, System::EventArgs^ e) {}
 };
 }

@@ -22,3 +22,4 @@ std::string GetPath(Windows::Forms::ComboBox^ box);
 bool isExist(std::string line, std::string pathh);
 void RefreshWorkersBox(Windows::Forms::ListBox^ box);
 WorkerCard TextToWCard(std::string txt);
+System::String^ GetLineCountS(std::string path_);
